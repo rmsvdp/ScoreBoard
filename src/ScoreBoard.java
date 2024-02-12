@@ -23,7 +23,7 @@ public class ScoreBoard {
 		public long getPuntos() {return puntos;	}
 	
 	}
-	 // implementa Comparator para comparar Marcador por atributo puntos
+
 	 private class comparaPuntos implements Comparator<Marcador>{
 	   public int compare(Marcador s1, Marcador s2)
 	   {
