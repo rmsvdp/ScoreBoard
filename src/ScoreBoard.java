@@ -19,6 +19,8 @@ public class ScoreBoard {
  * Podemos disponer de varios criterios de comparación, para ello se debe crear una 
  * clase específica para que implemente el criterio
  * 
+ * Disponemos de una variante del método sort que acepta el criterio de comparación
+ * 
  */
 	private class Marcador {
 		
@@ -44,7 +46,8 @@ public class ScoreBoard {
 		 @Override
 		 public int compare(Marcador s1, Marcador s2)
 	   {
-	      return (int) (s1.getPuntos() - s2.getPuntos());
+			 // si s2>s1   será negativo --> s2 va antes !
+	      return (int) (s1.getPuntos() - s2.getPuntos()); 
 	   }
 	 }
 	private Marcador[] myScoreBoard=new Marcador[10] ;
@@ -65,8 +68,12 @@ public class ScoreBoard {
 	public int insertScore(long puntos, String nick, String curso,   LocalDateTime fecha) {
 		int result = -1;
 		this.lineapunt = new Marcador(puntos,nick,curso,fecha);
-
-		
+		Marcador[] tempM ;
+		tempM = Arrays.copyOf(this.myScoreBoard, 11);
+		tempM[10]= this.lineapunt;
+		Arrays.sort(tempM,new comparaPuntos());
+		this.myScoreBoard = Arrays.copyOf(tempM, 10);
+		result = Arrays.binarySearch(this.myScoreBoard,this.lineapunt);
 		return result;
 	}
 	
