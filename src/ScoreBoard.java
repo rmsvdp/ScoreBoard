@@ -4,7 +4,22 @@ import java.util.Comparator;
 
 public class ScoreBoard {
 
-
+/*
+ * Interfaz Comparator
+ * Esta interfaz tiene un único método abstracto
+ * 
+ * int compare(Object ob1, Object ob2)
+ * 
+ * Cuando necesitamos otros criterios distintos de la ordenación natural (orden alfabético, alguna
+ * otra condición), debemos usar mejor este interfaz.
+ * 
+ * devuelve <0 si ob1 va antes de ob2
+ * devuelve >0 si ob1 va después de ob2
+ * devuelve 0 si son iguales
+ * Podemos disponer de varios criterios de comparación, para ello se debe crear una 
+ * clase específica para que implemente el criterio
+ * 
+ */
 	private class Marcador {
 		
 		private long puntos;
@@ -23,9 +38,11 @@ public class ScoreBoard {
 		public long getPuntos() {return puntos;	}
 	
 	}
-
+	// Clase específica para compararPuntos
+	
 	 private class comparaPuntos implements Comparator<Marcador>{
-	   public int compare(Marcador s1, Marcador s2)
+		 @Override
+		 public int compare(Marcador s1, Marcador s2)
 	   {
 	      return (int) (s1.getPuntos() - s2.getPuntos());
 	   }
@@ -48,16 +65,8 @@ public class ScoreBoard {
 	public int insertScore(long puntos, String nick, String curso,   LocalDateTime fecha) {
 		int result = -1;
 		this.lineapunt = new Marcador(puntos,nick,curso,fecha);
-		for (int i=0; i<10;i++) {
-			if (myScoreBoard[i].puntos <= lineapunt.puntos) {
-				for (int j= 9;j>i;j--) {
-					myScoreBoard[j]=myScoreBoard[j-1];
-				}
-				myScoreBoard[i]=lineapunt;
-			result = i;
-			break;
-			}
-		}
+
+		
 		return result;
 	}
 	
