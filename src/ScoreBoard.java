@@ -4,6 +4,16 @@ import java.util.Comparator;
 
 public class ScoreBoard {
 
+	
+	/* Versión con algoritmo de ordenación propio
+	 * ------------------------------------------------------------
+	 * Esta versión utiliza un algoritmo propio de ordenación,
+	 * el principio consiste en suponer que se parte siempre
+	 * de una lista ordenada.
+	 * Se recorre la lista y se para cuando la posición sea menor
+	 * que la puntuación que estamos intentando registrar.
+	 * En ese momento, se desplazan hacia abajo el resto de puntuaciones
+	 */
 
 	private class Marcador {
 		
@@ -23,20 +33,27 @@ public class ScoreBoard {
 		public long getPuntos() {return puntos;	}
 	
 	}
-
-	 private class comparaPuntos implements Comparator<Marcador>{
-	   public int compare(Marcador s1, Marcador s2)
-	   {
-	      return (int) (s1.getPuntos() - s2.getPuntos());
-	   }
-	 }
+	/**
+	 * Lista con las 10 mejores puntuaciones ordenadas
+	 */
 	private Marcador[] myScoreBoard=new Marcador[10] ;
+	/**
+	 * Objeto Marcador auxiliar
+	 */
 	private Marcador lineapunt= new Marcador();
+	/**
+	 * Nombre del juego al que hace referencia la lista de puntuaciones
+	 */
 	private String juego;
+	
 	
 	public String getJuego() {return juego;	}
 	public void setJuego(String juego) {this.juego = juego;	}
 	
+	/**
+	 * Constructor por defecto
+	 * @param _juego Nombre del juego sobre el que se genera la lista.
+	 */
 	public ScoreBoard(String _juego) {
 		juego = _juego;						// Especifica el juego
 		
@@ -44,7 +61,16 @@ public class ScoreBoard {
 			myScoreBoard[i] = new Marcador(0);
 		}
 	}
-	
+
+	/**
+	 * Gestiona la inserción de una puntuación.
+	 * @param puntos Puntuación
+	 * @param nick   Nick del jugador que registra la puntuación
+	 * @param curso  Grupo del jugador
+	 * @param fecha  Fecha de creación de la puntación
+	 * @return Posción en la que se inserta (-1) si no entra
+	 * dentro de las 10 primeras.
+	 */
 	public int insertScore(long puntos, String nick, String curso,   LocalDateTime fecha) {
 		int result = -1;
 		this.lineapunt = new Marcador(puntos,nick,curso,fecha);
