@@ -47,9 +47,12 @@ public class ScoreBoard {
 		 public int compare(Marcador s1, Marcador s2)
 	   {
 			 // si s2>s1   será negativo --> s2 va antes !
-	      return (int) (s1.getPuntos() - s2.getPuntos()); 
+	      return (int) (s2.getPuntos() - s1.getPuntos()); 
 	   }
 	 }
+	 
+	 
+	 
 	private Marcador[] myScoreBoard=new Marcador[10] ;
 	private Marcador lineapunt= new Marcador();
 	private String juego;
@@ -73,10 +76,27 @@ public class ScoreBoard {
 		tempM[10]= this.lineapunt;
 		Arrays.sort(tempM,new comparaPuntos());
 		this.myScoreBoard = Arrays.copyOf(tempM, 10);
-		result = Arrays.binarySearch(this.myScoreBoard,this.lineapunt);
+		result = indexOf(this.myScoreBoard, this.lineapunt);
+
 		return result;
 	}
-	
+	/**
+	 * Devuelve la posición de un objeto Marcador dentro del array
+	 * @param myArr Array ordenado
+	 * @param item  Elemento a buscar
+	 * @return   -1 no está, 0..myArr.length-1
+	 */
+	public int indexOf(Marcador[] myArr, Marcador item) {
+		int result = -1;
+				for (int i=0;i<myArr.length;i++) {
+					
+					if (myArr[i].equals(item)) {
+						result = i;
+						break;
+					}
+				}
+		return result;
+	}
 	public String[] getScoreBoard() {
 		String[] s = new String[10];
 		String tab = "      ";
