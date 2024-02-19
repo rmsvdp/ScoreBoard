@@ -47,6 +47,7 @@ public class ScoreBoard {
 		 public int compare(Marcador s1, Marcador s2)
 	   {
 			 // si s2>s1   será negativo --> s2 va antes !
+			 // Ojo con la comparación !!!
 	      return (int) (s2.getPuntos() - s1.getPuntos()); 
 	   }
 	 }
@@ -90,7 +91,7 @@ public class ScoreBoard {
 		int result = -1;
 				for (int i=0;i<myArr.length;i++) {
 					
-					if (myArr[i].equals(item)) {
+					if (item.equals(myArr[i])) { // Ojo como comparas!!
 						result = i;
 						break;
 					}
